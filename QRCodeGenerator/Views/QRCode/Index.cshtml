@@ -1,0 +1,71 @@
+﻿@*@model QRCodeGenerator.Models.QRCodeModel
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Daily QR Code</title>
+    </head>
+    <body>
+        <div style="text-align:center;">
+            @if (ViewBag.QRCodeExpired != null)
+            {
+                <h2>QR Code Expired</h2>
+                <p>The QR code you are trying to access has expired.</p>
+            }
+            else
+            {
+                <h2>Scan the QR Code to visit the site</h2>
+                <img src="@Model.QRCodeImageUrl" alt="Daily QR Code" />
+            }
+        </div>
+    </body>
+    </html>*@
+@model QRCodeGenerator.Models.QRCodeModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily QR Code</title>
+    <script>
+        // Function to update the timer every second
+        function updateTimer() {
+            var timerElement = document.getElementById("timer");
+            var timeLeft = parseInt(timerElement.innerText);
+
+            if (timeLeft > 0) {
+                timerElement.innerText = timeLeft - 1;
+            } else {
+                window.location.reload(true);
+            }
+        }
+
+        // Update the timer every second
+        setInterval(updateTimer, 1000);
+    </script>
+</head>
+<body>
+    <div style="text-align:center;">
+        @if (ViewBag.QRCodeExpired != null)
+        {
+            <h2>QR Code Expired</h2>
+            <p>The QR code you are trying to access has expired.</p>
+        }
+        else
+        {
+            <h2>Scan the QR Code to visit the site</h2>
+            <img src="@Model.QRCodeImageUrl" alt="Daily QR Code" />
+            <h2>Your OTP: @Model.TOTP</h2>
+        }
+    </div>
+
+    <!-- Timer display -->
+    <div style="text-align:center;">
+        <h2>Time left: <span id="timer">30</span> seconds</h2>
+    </div>
+</body>
+</html>
+
+

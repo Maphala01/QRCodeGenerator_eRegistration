@@ -1,0 +1,47 @@
+﻿@model QRCodeGenerator.Models.CheckInModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee Check-in</title>
+</head>
+<body>
+    <div style="text-align:center;">
+        <h2>Employee Office Check-in</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+                <label for="EmployeeName">Employee Name</label>
+                @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EmployeeName)
+            </div>
+            <div>
+                <label for="EmployeeID">Employee ID</label>
+                @Html.TextBoxFor(m => m.EmployeeID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EmployeeID)
+            </div>
+            <div>
+                <label for="OTP">OTP</label>
+                @Html.TextBoxFor(m => m.OTP, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.OTP)
+            </div>
+
+            <input type="hidden" name="timestamp" value="@ViewBag.Timestamp" />
+            <input type="hidden" name="otp" value="@ViewBag.OTP" />
+
+            <button type="submit">Check-in</button>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div>
+                <p>@ViewBag.Message</p>
+            </div>
+        }
+    </div>
+</body>
+</html>

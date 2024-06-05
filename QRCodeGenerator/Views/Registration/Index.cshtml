@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" />
+    @*<link href="~/StyleSheet.css" rel="stylesheet" asp-append-version="true" />*@
+
+    <!-- Add Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
+    <style>
+        /* Add CSS for illuminated OTP inputs */
+        .otp-input:focus,
+        .otp-input.filled {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 5px var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <img src="https://res.cloudinary.com/debbsefe/image/upload/f_auto,c_fill,dpr_auto,e_grayscale/image_fz7n7w.webp" alt="header-image" class="cld-responsive">
+            <h1 class="form-title">FASSET e-Register</h1>
+            <form class="Form">
+                <h5 style="text-align:center">ENTER TOTP</h5>
+                <div class="otp-container">
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                </div>
+                <!-- Replace the default select with Select2 -->
+                <div class="input-animated">
+                    <input type="text" id="department" list="departments" required placeholder="DEPARTMENT" />
+                    <label for="department" class="label-department"><span class="content-department">DEPARTMENT</span></label>
+                    <datalist id="departments">
+                        <option value="Human Resources">
+                        <option value="Finance">
+                        <option value="Engineering">
+                        <option value="Marketing">
+                        <option value="Sales">
+                    </datalist>
+                </div>
+                <div class="input-animated">
+                    <input type="text" placeholder="NAME" required>
+                    <label class="label-name"><span class="content-name">NAME</span></label>
+                </div>
+                <button type="button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add jQuery (required by Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Add Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
+    <!-- Initialize Select2 for the department select -->
+    <script>
+        $(document).ready(function () {
+            $('#department').select2();
+        });
+
+        // JavaScript to handle illuminating OTP inputs
+        $(document).on('input', '.otp-input', function () {
+            if ($(this).val().length > 0) {
+                $(this).addClass('filled');
+                $(this).next('.otp-input').focus();
+            } else {
+                $(this).removeClass('filled');
+            }
+        });
+    </script>
+</body>
+</html>
